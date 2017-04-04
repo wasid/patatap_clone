@@ -10,12 +10,13 @@
         <!-- Define inlined PaperScript associate it with myCanvas -->
         <script type="text/paperscript" canvas="myCanvas">
         	// Create a Paper.js Path to draw a line into it:
-        	var path = new Path();
-
-            for(x=20; x < 1400; x += 100){
-                for(y=20; y < 1400; y += 100){
-                    var myCircle = new Path.Circle(new Point(x, y), 20).fillColor = 'steelblue';                
-                }
+        	function onKeyDown(event) {
+                
+                var maxPoint = new Point(view.size.width, view.size.height);
+                var randomPoint = Point.random(); // = new Point(Math.random(), Math.random()); which is between 0-0.9
+                var point = maxPoint * randomPoint; // Which will be less than maxPoint
+                new Path.Circle(point, 20).fillColor = 'steelblue';                
+              
             }
 
 
