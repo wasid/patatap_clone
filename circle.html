@@ -10,14 +10,54 @@
         <!-- Define inlined PaperScript associate it with myCanvas -->
         <script type="text/paperscript" canvas="myCanvas">
         	// Create a Paper.js Path to draw a line into it:
+        	
+        	var circles = [];
+        	
         	function onKeyDown(event) {
                 
                 var maxPoint = new Point(view.size.width, view.size.height);
                 var randomPoint = Point.random(); // = new Point(Math.random(), Math.random()); which is between 0-0.9
                 var point = maxPoint * randomPoint; // Which will be less than maxPoint
-                new Path.Circle(point, 20).fillColor = 'steelblue';                
-              
+                // var path = new Path.Circle(point, 20);
+                // var color = getRandomColor();
+                var path = new Path.Circle({
+                	center: point,
+                	radius: 300,
+                	fillColor: getRandomColor()
+                });
+                
+                // path.fillColor = "steelblue";
+                
+                circles.push(path);
             }
+            
+            // var animatedCircle = new Path.Circle({
+            //     	center: view.center,
+            //     	radius: 70,
+            //     	fillColor: 'red'
+            //     });
+                
+                function onFrame(event) {
+                	// Each frame, change the fill color of the path slightly by
+                	// adding 1 to its hue:
+                	for(i = 0; i < circles.length; i++){
+                	    
+                	    circles[i].fillColor.hue += 1;
+                	    circles[i].scale(.9);
+                	
+                	}
+                // 	animatedCircle.fillColor.hue += 1;
+                // 	animatedCircle.scale(.9);
+                }
+                
+                function getRandomColor() {
+                    var letters = '0123456789ABCDEF';
+                    var color = '#';
+                    for (var i = 0; i < 6; i++ ) {
+                        color += letters[Math.floor(Math.random() * 16)];
+                    }
+                    return color;
+                }
 
 
         </script>
